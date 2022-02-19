@@ -31,6 +31,15 @@ from inventory.models import Stock
 from django.http.response import JsonResponse
 
 
+def fetch_price(request):
+    if request.method == 'GET':
+        code = request.GET['code']
+        code = str(code)
+        print(code)
+        item = Stock.objects.filter(code=code).first()
+        return JsonResponse({"price" : item.sell_price})
+    else:
+        return HttpResponse("Request method is not a GET")
 
 # shows a lists of all suppliers
 class SupplierListView(ListView):
@@ -313,6 +322,7 @@ class PurchaseBillView(View):
             'items'         : PurchaseItem.objects.filter(billno=billno),
             'billdetails'   : PurchaseBillDetails.objects.get(billno=billno),
             'bill_base'     : self.bill_base,
+            'grand_total'   : PurchaseBill.objects.get(billno=billno).get_total_price()
         }
         return render(request, self.template_name, context)
 
@@ -355,6 +365,7 @@ class SaleBillView(View):
             'items'         : SaleItem.objects.filter(billno=billno),
             'billdetails'   : SaleBillDetails.objects.get(billno=billno),
             'bill_base'     : self.bill_base,
+            'grand_total'   : SaleBill.objects.get(billno=billno).get_total_price()
         }
         return render(request, self.template_name, context)
 

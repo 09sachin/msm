@@ -34,7 +34,7 @@ class Stock(models.Model):
     is_deleted = models.BooleanField(default=False)
 
     def __str__(self):
-	    return self.code
+	    return self.name +'_'  +  self.code
 
 
     def save(self, *args, **kwargs):

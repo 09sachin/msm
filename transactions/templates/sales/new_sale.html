@@ -69,19 +69,19 @@
                                 <label class="panel-body-text">Stock:</label>
                                 {{ iform.code }}
                             </div>
-                            <!-- <div class="form-group col-md-2">
+                            <div class="form-group col-md-2">
                                 <label class="panel-body-text">Price per item:</label>
-                                {{ iform.perprice }}
-                            </div> -->
+                                <input type="text" class="textinput form-control price" value="1" disabled required>
+                            </div>
                             <div class="form-group col-md-2">
                                 {{ iform.quantity.errors }}
                                 <label class="panel-body-text">Quantity:</label>
                                 {{ iform.quantity }}
                             </div>
-                            <!-- <div class="form-group col-md-1">
+                            <div class="form-group col-md-1">
                                 <label class="panel-body-text">Price:</label>
                                 <input type="text" class="textinput form-control totalprice" value="1" disabled required>
-                            </div> -->
+                            </div>
                             <div class="form-group col-md-1">
                                 <label class="panel-body-text" style="color: #000">.</label>
                                 <button class="form-control btn btn-danger remove-form-row">-</button>
@@ -104,12 +104,45 @@
             
         </div>
 
+      
     </form>
 
+    <button style="display: none;" class='info'>Info</button>
+
+
     <!-- Custom JS to add and remove item forms -->
-    <script type="text/javascript" src="{% static 'js/jquery-3.2.1.slim.min.js' %}"></script>
+    <!-- <script type="text/javascript" src="{% static 'js/jquery-3.2.1.slim.min.js' %}"></script> -->
     <script type="text/javascript" src="{% static 'js/dialogbox.js' %}"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    
     <script type="text/javascript">
+
+
+$("input").change(function(e){
+    if(this.value.length==13){
+        $('.info').click();
+    }
+});
+
+    $('.info').click(function(){
+    var code = $('.stock').val();
+    console.log(code);
+    $.ajax(
+    {
+        type:"GET",
+        url: "/transactions/fetch_price",
+        data:{
+                 code : code
+        },
+        success: function( data ) 
+        {
+            let quantity = $('.quantity').val();
+            $('.price').val(data['price']);
+            $('.totalprice').val(quantity*data['price']);
+            console.log(data)
+        }
+     })
+});
         
         //creates custom alert object
         var custom_alert = new custom_alert();
