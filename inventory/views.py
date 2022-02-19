@@ -11,21 +11,13 @@ from .models import Stock, StockCategory
 from .forms import StockForm, StockCategoryForm
 from django_filters.views import FilterView
 from .filters import StockFilter
-from barcode import EAN13
-from io import BytesIO
-
 
 
 def GenerateBarCode(request,pk):
-    print('hit')
-    obj = Stock.objects.get(pk=pk)
-    code = obj.code
-    my_code = EAN13(code)
-    print(my_code)
-    my_code.save("homepage/static/new_code")
-    context = {"svg " : my_code, "price" : obj.sell_price}
 
-    return render(request,'barcode.html', context)
+    obj = Stock.objects.get(pk=pk)
+    context = {"stock" : obj}
+    return render(request,'barcode.html',context)
 
 
 

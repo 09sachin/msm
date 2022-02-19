@@ -3,7 +3,7 @@ from inventory.models import Stock
 from django.utils import timezone
 #contains suppliers
 class Supplier(models.Model):
-    id = models.AutoField(primary_key=True)
+    id = models.BigAutoField(primary_key=True)
     name = models.CharField(max_length=150)
     phone = models.CharField(max_length=12, unique=True)
     address = models.CharField(max_length=200)
@@ -17,7 +17,7 @@ class Supplier(models.Model):
 
 #contains the purchase bills made
 class PurchaseBill(models.Model):
-    billno = models.AutoField(primary_key=True)
+    billno = models.BigAutoField(primary_key=True)
     time = models.DateTimeField(auto_now=True)
     supplier = models.ForeignKey(Supplier, on_delete = models.CASCADE, related_name='purchasesupplier')
 
@@ -36,6 +36,7 @@ class PurchaseBill(models.Model):
 
 #contains the purchase stocks made
 class PurchaseItem(models.Model):
+    id = models.BigAutoField(primary_key=True)
     billno = models.ForeignKey(PurchaseBill, on_delete = models.CASCADE, related_name='purchasebillno')
     stock = models.ForeignKey(Stock, on_delete = models.CASCADE, related_name='purchaseitem')
     quantity = models.IntegerField(default=1)
@@ -47,13 +48,12 @@ class PurchaseItem(models.Model):
 
 #contains the other details in the purchases bill
 class PurchaseBillDetails(models.Model):
+    id = models.BigAutoField(primary_key=True)
     billno = models.ForeignKey(PurchaseBill, on_delete = models.CASCADE, related_name='purchasedetailsbillno')
-    
     eway = models.CharField(max_length=50, blank=True, null=True)    
     veh = models.CharField(max_length=50, blank=True, null=True)
     destination = models.CharField(max_length=50, blank=True, null=True)
     po = models.CharField(max_length=50, blank=True, null=True)
-    
     cgst = models.CharField(max_length=50, blank=True, null=True)
     sgst = models.CharField(max_length=50, blank=True, null=True)
     igst = models.CharField(max_length=50, blank=True, null=True)
@@ -67,9 +67,8 @@ class PurchaseBillDetails(models.Model):
 
 #contains the sale bills made
 class SaleBill(models.Model):
-    billno = models.AutoField(primary_key=True)
+    billno = models.BigAutoField(primary_key=True)
     time = models.DateTimeField(auto_now=True)
-
     name = models.CharField(max_length=150, default="Customer")
     phone = models.CharField(max_length=12,blank=True, null = True)
     # address = models.CharField(max_length=200)
@@ -91,6 +90,7 @@ class SaleBill(models.Model):
 
 #contains the sale stocks made
 class SaleItem(models.Model):
+    id = models.BigAutoField(primary_key=True)
     billno = models.ForeignKey(SaleBill, on_delete = models.CASCADE, related_name='salebillno')
     stock = models.ForeignKey(Stock, on_delete = models.CASCADE, related_name='saleitem')
     quantity = models.IntegerField(default=1)
@@ -100,10 +100,11 @@ class SaleItem(models.Model):
     def __str__(self):
 	    return "Bill no: " + str(self.billno.billno) + ", Item = " + self.stock.name
 
-#contains the other details in the sales bill
+#contains the other details in the sales
+# id = models.BigAutoField(primary_key=True) bill
 class SaleBillDetails(models.Model):
+    id = models.BigAutoField(primary_key=True)
     billno = models.ForeignKey(SaleBill, on_delete = models.CASCADE, related_name='saledetailsbillno')
-    
     eway = models.CharField(max_length=50, blank=True, null=True)    
     veh = models.CharField(max_length=50, blank=True, null=True)
     destination = models.CharField(max_length=50, blank=True, null=True)

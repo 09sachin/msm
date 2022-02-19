@@ -134,10 +134,10 @@
                     
                                 <div id="printArea" class="bg">
                     
-                                <img src = "{% static 'new_code.svg' %}" >
+                                <img src = "{{stock.barcode.url}}" >
                                 <p style="padding-left:  1rem;">Marudhar Super Market</p>
-                                <p style="padding-left: 2rem;">{{product_name}}</p>
-                                <p style="padding-left: 2rem;">RS {{price}} /-</p>
+                                <p style="padding-left: 2rem;">{{stock.name}}</p>
+                                <p style="padding-left: 2rem;">RS {{stock.sell_price}} /-</p>
                     
                                 </div>
                     
