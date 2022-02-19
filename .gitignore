@@ -61,6 +61,7 @@ pip-log.txt
 pip-delete-this-directory.txt
 images
 # Unit test / coverage reports
+staticfiles
 htmlcov/
 .tox/
 .nox/
