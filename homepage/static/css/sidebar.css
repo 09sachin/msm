@@ -17,9 +17,10 @@
     left: 0;
     height: 100vh;
     z-index: 999;
-    background: #4682B4;
+    background: #7c06a7;
     color: #fff;
     transition: all 0.3s;
+    border-right: 1px solid white;
 }
 
 .sidebar.active {
@@ -28,12 +29,12 @@
 
 .sidebar-header {
     padding: 20px;
-    background: #4682B4;
+    background: #7c06a7;
 }
 
 .sidebar-components {
     padding: 20px 0;
-    border-bottom: 1px solid #4682B4;
+    border-bottom: 1px solid #7c06a7;
 }
 
 .sidebar-paragraph {
@@ -60,7 +61,7 @@ a.right-arrow[data-toggle="collapse"] {
 }
 
 .sidebar-button:hover {
-    color: #4682B4;
+    color: #7c06a7;
     background: #fff;
 }
 
@@ -84,7 +85,7 @@ ul.CTAs a {
 
 a.nav-button {
     background: #fff;
-    color: #4682B4;
+    color: #7c06a7;
 }
 
 .bottomleft {
@@ -104,6 +105,7 @@ a.nav-button {
     padding: 20px;
     min-height: 100vh;
     transition: all 0.3s;
+    background: #7c06a7;
 }
 
 /* ---------------------------------------------------

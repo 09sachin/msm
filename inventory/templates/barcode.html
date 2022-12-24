@@ -16,6 +16,7 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">    
     <link rel="stylesheet" type="text/css" href="{% static 'css/sidebar.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/bill.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/barcode.css' %}">
     
     <title> BarCode</title>
     <!-- <style>
@@ -127,28 +128,37 @@
 
                         <br><br>
                     
-                    
-                            <div class="bg">
-                    
-                                <br><br>
+                    <div  id="print" >
+                            <div class="area" style="width: 525px;
+                            margin: auto;">
                     
                                 <div id="printArea" class="bg">
                     
                                 <img src = "{{stock.barcode.url}}" >
-                                <p style="padding-left:  1rem;">Marudhar Super Market</p>
-                                <p style="padding-left: 2rem;">{{stock.name}}</p>
-                                <p style="padding-left: 2rem;">RS {{stock.sell_price}} /-</p>
-                    
+                                <div class="box" style="display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                flex-direction: column;
+                                margin: auto;
+                                padding-bottom: 20px;">
+                                <p style=" width: auto;
+                                margin: auto;
+                                font-weight: bold;">{{stock.name}}</p>
+                                <p style=" width: auto;
+                                margin: auto;
+                                font-weight: bold;">Selling Price : {{stock.sell_price}} /-</p>
+                                <p style=" width: auto;
+                                margin: auto;
+                                font-weight: bold;">Marudhar Super Market</p>
                                 </div>
-                    
-                                <br><br>
-                    
+                                </div>
+                                <br>
                             </div>
-                    
+                    </div>
                             <br><br>
                     
                             <div class="wrapper">
-                                <button class="center ghost-blue" onclick="printpage('printArea')">Print</button>
+                                <button class="center ghost-blue" onclick="printpage('print')">Print</button>
                                 <!-- <button class="center ghost-green" type="submit">Save Draft</button> -->
                                 <a href="{% url 'inventory' %}" class="btn center ghost-button">Go Back</a>
                             </div>
@@ -156,11 +166,15 @@
                         
                         <script>
                             function printpage(divName) {
-                                var printContents = document.getElementById(divName).innerHTML;
-                                var originalContents = document.body.innerHTML;
-                                document.body.innerHTML = printContents;
-                                window.print();
-                                document.body.innerHTML = originalContents;
+                                var frame = document.getElementById(divName);
+                                var data = frame.innerHTML;
+                                var win = window.open('', '', 'height=500,width=900');
+                                win.document.write('<style>@page{size:landscape;}</style><html><head><title></title>');
+                                win.document.write('</head><body >');
+                                win.document.write(data);
+                                win.document.write('</body></html>');
+                                win.print();
+                                win.close();
                             }       
                             </script>
 
