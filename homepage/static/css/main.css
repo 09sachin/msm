@@ -19,7 +19,7 @@
 body,
 html {
   height: 100%;
-  background-color: #000000;
+  background: #7c06a7;
 }
 
 .form-group{
@@ -363,9 +363,9 @@ html { width: 100%; height:100%; overflow:hidden; }
  
 
 .ghost-pink {
-  color: #288DFF;
+  color: #ffffff;
   background-color: transparent;
-  border: 2px solid #288DFF;
+  border: 2px solid #ffffff;
   font-size: 17px;
   padding: 7px 12px;
   transition-duration: 0.2s;
